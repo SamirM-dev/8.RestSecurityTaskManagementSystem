@@ -8,6 +8,7 @@ public class RestSecurityTaskManagementSystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestSecurityTaskManagementSystemApplication.class, args);
+
 	}
 
 }
