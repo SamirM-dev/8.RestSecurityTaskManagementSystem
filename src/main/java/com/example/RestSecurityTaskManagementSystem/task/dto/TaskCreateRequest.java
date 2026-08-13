@@ -2,6 +2,15 @@ package com.example.RestSecurityTaskManagementSystem.task.dto;
 
 import com.example.RestSecurityTaskManagementSystem.enums.TaskPriority;
 import com.example.RestSecurityTaskManagementSystem.enums.TaskStatus;
+import com.example.RestSecurityTaskManagementSystem.validation.ValidTaskPriority;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-public record TaskCreateRequest(String title, String description,TaskPriority priority) {
-}
+public record TaskCreateRequest(
+        @NotBlank(message = "The title must be entered") @Size(min = 3,max = 100,message = "Title's length must be between 3 and 100 symbols")
+        String title,
+        @NotBlank(message = "The description must be entered") @Size(min = 1,max = 500,message = "Description's length must be between 3 and 100 symbols")
+        String description,
+        @NotNull(message = "The priority must be entered") @ValidTaskPriority(message = "Enter priority in valid format")
+        TaskPriority priority){}
