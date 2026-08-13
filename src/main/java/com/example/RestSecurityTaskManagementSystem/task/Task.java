@@ -40,10 +40,10 @@ public class Task {
     private List<Comment> comments = new ArrayList<>();
 
     public Task(){}
-    public Task(String title, String description, TaskStatus status, TaskPriority priority, User user){
+    public Task(String title, String description,TaskPriority priority, User user){
         this.title=title;
         this.description=description;
-        this.status=status;
+        this.status=TaskStatus.NEW;
         this.priority=priority;
         this.user=user;
         this.createdAt=LocalDateTime.now();
