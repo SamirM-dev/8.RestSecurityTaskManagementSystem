@@ -1,4 +1,4 @@
-package com.example.RestSecurityTaskManagementSystem.jwt;
+package com.example.RestSecurityTaskManagementSystem.auth.jwt;
 
 import com.example.RestSecurityTaskManagementSystem.user.User;
 import jakarta.persistence.*;

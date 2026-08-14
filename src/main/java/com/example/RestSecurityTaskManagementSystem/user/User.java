@@ -1,6 +1,6 @@
 package com.example.RestSecurityTaskManagementSystem.user;
 
-import com.example.RestSecurityTaskManagementSystem.jwt.RefreshToken;
+import com.example.RestSecurityTaskManagementSystem.auth.jwt.RefreshToken;
 import com.example.RestSecurityTaskManagementSystem.task.Task;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.example.RestSecurityTaskManagementSystem.appfilter;
+package com.example.RestSecurityTaskManagementSystem.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

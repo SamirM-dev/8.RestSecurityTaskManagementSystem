@@ -1,7 +1,7 @@
 package com.example.RestSecurityTaskManagementSystem.config;
 
-import com.example.RestSecurityTaskManagementSystem.appfilter.LoggingFilter;
-import com.example.RestSecurityTaskManagementSystem.appfilter.RequestIdFilter;
+import com.example.RestSecurityTaskManagementSystem.filter.LoggingFilter;
+import com.example.RestSecurityTaskManagementSystem.filter.RequestIdFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class FilterConfig {
         FilterRegistrationBean<RequestIdFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new RequestIdFilter());
         registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        registration.addUrlPatterns("/api/*");
+        registration.addUrlPatterns("/*");
         return registration;
      }
 }

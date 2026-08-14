@@ -26,4 +26,8 @@ public class HelpForService {
             }
         }
     }
+
+    public boolean isOwner(){
+
+    }
 }
