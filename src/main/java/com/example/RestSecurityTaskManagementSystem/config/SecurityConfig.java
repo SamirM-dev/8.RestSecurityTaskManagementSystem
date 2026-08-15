@@ -3,6 +3,10 @@ package com.example.RestSecurityTaskManagementSystem.config;
 import com.example.RestSecurityTaskManagementSystem.auth.handller.MyAccessDeniedHandler;
 import com.example.RestSecurityTaskManagementSystem.auth.handller.MyEntryPoint;
 import com.example.RestSecurityTaskManagementSystem.auth.jwt.JwtTokenFilter;
+import com.example.RestSecurityTaskManagementSystem.auth.oauth2.MyFailureHandler;
+import com.example.RestSecurityTaskManagementSystem.auth.oauth2.MyOauth2Service;
+import com.example.RestSecurityTaskManagementSystem.auth.oauth2.MyOidcService;
+import com.example.RestSecurityTaskManagementSystem.auth.oauth2.MySuccessHandler;
 import com.example.RestSecurityTaskManagementSystem.details.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +39,10 @@ public class SecurityConfig {
     private final JwtTokenFilter jwtTokenFilter;
     private final MyAccessDeniedHandler accessDeniedHandler;
     private final MyEntryPoint entryPoint;
+    private final MyOauth2Service oauth2Service;
+    private final MyOidcService oidcService;
+    private final MySuccessHandler successHandler;
+    private final MyFailureHandler failureHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http){
@@ -71,8 +79,14 @@ public class SecurityConfig {
                 .exceptionHandling(handling->handling
                         .authenticationEntryPoint(entryPoint)
                         .accessDeniedHandler(accessDeniedHandler))
-                .oauth2Login(!!!!);
-return http;
+                .oauth2Login(oauth2->oauth2
+                        .userInfoEndpoint(info->info
+                                .userService(oauth2Service)
+                                .oidcUserService(oidcService))
+                        .successHandler(successHandler)
+                        .failureHandler(failureHandler)
+                        );
+return http.build();
     }
 
     @Bean

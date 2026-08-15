@@ -44,7 +44,7 @@ public class AuthController {
 
     @PostMapping("/auth/exchange")
     public ResponseEntity<TokenResponse> exchange(@Valid@RequestBody ExchangeRequest request){
-
+        return ResponseEntity.ok(authService.exchange(request));
     }
 
     @GetMapping("/me")

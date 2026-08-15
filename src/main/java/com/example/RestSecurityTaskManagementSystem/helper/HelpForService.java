@@ -1,6 +1,11 @@
 package com.example.RestSecurityTaskManagementSystem.helper;
 
+import com.example.RestSecurityTaskManagementSystem.task.Task;
+import com.example.RestSecurityTaskManagementSystem.task.TaskRepository;
+import com.example.RestSecurityTaskManagementSystem.user.User;
+import com.example.RestSecurityTaskManagementSystem.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,9 +14,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class HelpForService {
 
     private static final List<String> ALLOWED_SORT_FOR_TASKS = List.of("id","title","description","status","priority","createdAt","updatedAt","user.id");
+
+    private final TaskRepository taskRepository;
 
     public <T> T checkId(Long id, JpaRepository<T, Long> repository, String entity){
         if (id<=0) throw new IllegalArgumentException("Id is not valid");
@@ -27,7 +35,8 @@ public class HelpForService {
         }
     }
 
-    public boolean isOwner(){
-
+    public boolean isOwner(Long userId,Long taskId){
+        Task task = checkId(taskId,taskRepository,"Task");
+        return task.getUser().getId().equals(userId);
     }
 }

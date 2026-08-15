@@ -7,9 +7,12 @@ import com.example.RestSecurityTaskManagementSystem.auth.dto.TokenResponse;
 import com.example.RestSecurityTaskManagementSystem.auth.jwt.JwtTokenProvider;
 import com.example.RestSecurityTaskManagementSystem.auth.jwt.RefreshToken;
 import com.example.RestSecurityTaskManagementSystem.auth.jwt.RefreshTokenRepository;
+import com.example.RestSecurityTaskManagementSystem.auth.oauth2.ExchangeRequest;
 import com.example.RestSecurityTaskManagementSystem.details.CustomUserDetailsService;
 import com.example.RestSecurityTaskManagementSystem.details.UserPrincipal;
 import com.example.RestSecurityTaskManagementSystem.exception.ResourceAlreadyExistException;
+import com.example.RestSecurityTaskManagementSystem.helper.HelpForService;
+import com.example.RestSecurityTaskManagementSystem.helper.OneStoreService;
 import com.example.RestSecurityTaskManagementSystem.user.User;
 import com.example.RestSecurityTaskManagementSystem.user.UserRepository;
 import com.example.RestSecurityTaskManagementSystem.user.UserService;
@@ -18,6 +21,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +41,8 @@ public class AuthService {
     private final CustomUserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final OneStoreService oneStoreService;
+    private final HelpForService helpForService;
 
     public UserResponse register(RegisterRequest request){
         String email = request.email();
@@ -86,8 +92,21 @@ public class AuthService {
         refreshTokenRepository.delete(token);
     }
 
-    public TokenResponse exchange(){
+    public TokenResponse exchange(ExchangeRequest request){
+        Long userId=oneStoreService.consume(request.code());
+        if (userId==null){
+            throw new BadCredentialsException("Code was expired");
+        }
+        UserPrincipal principal = new UserPrincipal(helpForService.checkId(userId,userRepository,"User"));
 
+        String accessToken= jwtTokenProvider.generateAccessToken(principal);
+        String refreshToken = jwtTokenProvider.generateRefreshToken(principal);
+
+        RefreshToken newRefTok = new RefreshToken(refreshToken,principal.getUser(),LocalDateTime.now().plusDays(7));
+        principal.getUser().addRefreshToken(newRefTok);
+        refreshTokenRepository.save(newRefTok);
+
+        return toResponse(accessToken,refreshToken);
     }
 
     public UserResponse me(UserPrincipal principal){

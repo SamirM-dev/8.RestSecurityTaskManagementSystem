@@ -1,4 +1,6 @@
 package com.example.RestSecurityTaskManagementSystem.auth.oauth2;
 
-public record ExchangeRequest() {
+import jakarta.validation.constraints.NotBlank;
+
+public record ExchangeRequest(@NotBlank String code) {
 }
