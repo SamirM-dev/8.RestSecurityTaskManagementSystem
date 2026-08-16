@@ -29,12 +29,11 @@ public class Task {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
-    @Column(name = "crated_at")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)@JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER)@JoinColumn(name = "user_id",nullable = false)
     private User user;
     @OneToMany(mappedBy = "task",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH},orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();

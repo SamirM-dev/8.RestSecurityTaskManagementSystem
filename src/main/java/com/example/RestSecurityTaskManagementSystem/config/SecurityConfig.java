@@ -30,7 +30,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
-@EnableMethodSecurity
+@EnableMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+)
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor

@@ -21,7 +21,7 @@ public class Comment {
     private String author;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-    @Column(nullable = false)@ManyToOne(fetch = FetchType.EAGER)@JoinColumn(name = "task_id")
+    @ManyToOne(fetch = FetchType.EAGER)@JoinColumn(name = "task_id",nullable = false)
     private Task task;
 
     public Comment(){}
