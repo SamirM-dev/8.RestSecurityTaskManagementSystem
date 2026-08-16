@@ -23,13 +23,11 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/auth/register")
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<UserResponse> register(@Valid@RequestBody RegisterRequest request){
         return ResponseEntity.status(201).body(authService.register(request));
     }
 
     @PostMapping("/auth/login")
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TokenResponse> login(@Valid@RequestBody LoginRequest request){
         return ResponseEntity.ok(authService.login(request));
     }

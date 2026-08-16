@@ -46,9 +46,9 @@ public class AuthService {
 
     public UserResponse register(RegisterRequest request){
         String email = request.email();
-        if (userRepository.existsByEmail(email)){
-            throw new ResourceAlreadyExistException("User with email \""+email+"\" already exist");
-        }
+//        if (userRepository.existsByEmail(email)){
+//            throw new ResourceAlreadyExistException("User with email \""+email+"\" already exist");
+//        }
         return userService.toResponse(userRepository.save(new User(request.name(),email,passwordEncoder.encode(request.password()))));
     }
 

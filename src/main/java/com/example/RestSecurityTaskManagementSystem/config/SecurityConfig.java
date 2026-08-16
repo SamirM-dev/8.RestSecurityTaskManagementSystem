@@ -53,6 +53,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth-> auth
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                        .requestMatchers("/api/v1/ass").permitAll()
                         .requestMatchers("/api/v1/auth/register").permitAll()
                         .requestMatchers("/api/v1/auth/login").permitAll()
                         .requestMatchers("/api/v1/auth/refresh").permitAll()

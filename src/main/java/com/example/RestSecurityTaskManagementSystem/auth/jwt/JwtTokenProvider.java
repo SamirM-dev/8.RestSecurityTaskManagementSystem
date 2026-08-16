@@ -24,9 +24,9 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String jwtSecret;
     @Value("${jwt.access-token-expiration-ms}")
-    private String accessTokenExpiration;
+    private long accessTokenExpiration;
     @Value("${jwt.refresh-token-expiration-ms}")
-    private String refreshTokenExpiration;
+    private long refreshTokenExpiration;
 
     private Key getKey(){
         byte[] bytes = Decoders.BASE64.decode(jwtSecret);
