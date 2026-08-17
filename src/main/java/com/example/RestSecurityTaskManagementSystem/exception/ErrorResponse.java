@@ -16,7 +16,7 @@ public class ErrorResponse {
     private String path;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
-    private List<ErrorResponse> errorResponses = new ArrayList<>();
+    private List<ErrorResponse.ErrorField> errorFields = new ArrayList<>();
 
     public ErrorResponse(long status,String error,String message,String path){
         this.status=status;
@@ -25,8 +25,8 @@ public class ErrorResponse {
         this.path=path;
         this.timestamp=LocalDateTime.now();
     }
-    public void setErrorResponses(List<ErrorResponse> errorResponses){
-        this.errorResponses=errorResponses;
+    public void setErrorResponses(List<ErrorResponse.ErrorField> errorFields){
+        this.errorFields=errorFields;
     }
 
     @AllArgsConstructor

@@ -33,7 +33,6 @@ public class AuthController {
     }
 
     @PostMapping("/auth/refresh")
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TokenResponse> refresh(@Valid@RequestBody RefreshTokenRequest request){
         return ResponseEntity.ok(authService.refresh(request));
     }
@@ -46,7 +45,6 @@ public class AuthController {
     }
 
     @PostMapping("/auth/exchange")
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TokenResponse> exchange(@Valid@RequestBody ExchangeRequest request){
         return ResponseEntity.ok(authService.exchange(request));
     }

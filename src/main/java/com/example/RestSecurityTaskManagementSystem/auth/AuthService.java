@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,17 +47,25 @@ public class AuthService {
 
     public UserResponse register(RegisterRequest request){
         String email = request.email();
-//        if (userRepository.existsByEmail(email)){
-//            throw new ResourceAlreadyExistException("User with email \""+email+"\" already exist");
-//        }
+        if (userRepository.existsByEmail(email)){
+            throw new ResourceAlreadyExistException("User with email \""+email+"\" already exist");
+        }
         return userService.toResponse(userRepository.save(new User(request.name(),email,passwordEncoder.encode(request.password()))));
     }
 
     public TokenResponse login(LoginRequest request){
-        authenticationManager.authenticate(
+        User user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new BadCredentialsException("Invalid credentials"));
+
+        if (user.getPassword() == null) {
+            throw new BadCredentialsException("This account was registered with " + user.getProvider());
+        }
+
+        Authentication auth =authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(),request.password())
         );
-        UserPrincipal principal =(UserPrincipal) userDetailsService.loadUserByUsername(request.email());
+
+        UserPrincipal principal =(UserPrincipal) auth.getPrincipal();
         String accessToken = jwtTokenProvider.generateAccessToken(principal);
         String refreshToken = jwtTokenProvider.generateRefreshToken(principal);
 

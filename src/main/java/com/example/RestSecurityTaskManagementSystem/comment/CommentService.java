@@ -29,14 +29,11 @@ public class CommentService {
     public CommentResponse createComment(CommentCreateRequest request,Long taskId){
         Task task = helpForService.checkId(taskId,taskRepository,TASK);
         Comment created = commentRepository.save(new Comment(request.text(), request.author(),task));
-        task.addComment(created);
         return toResponse(created);
     }
     public void delete(Long taskId,Long commentId){
-        Task task=helpForService.checkId(taskId,taskRepository,TASK);
         Comment deleted = commentRepository.findByIdAndTask_Id(commentId,taskId).orElseThrow(()->new EntityNotFoundException("Task{"+taskId+"} does not has comment{"+commentId+"}"));
         commentRepository.delete(deleted);
-        task.deleteComment(deleted);
     }
 
     public CommentResponse toResponse(Comment comment){

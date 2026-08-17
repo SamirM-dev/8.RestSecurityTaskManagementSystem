@@ -49,8 +49,9 @@ public class GlobalExceptionHandler {
         List<ErrorResponse.ErrorField> errorFields = e.getBindingResult().getFieldErrors()
                 .stream().map(field->new ErrorResponse.ErrorField(field.getField(),field.getDefaultMessage())).toList();
         ErrorResponse response=new ErrorResponse(
-                400,"BAD REQUEST",e.getMessage(),request.getRequestURI()
+                400,"BAD REQUEST","Validation failed",request.getRequestURI()
         );
+        response.setErrorResponses(errorFields);
 
         return ResponseEntity.badRequest().body(response);
     }

@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component("helpForService")
 @RequiredArgsConstructor
@@ -36,7 +37,6 @@ public class HelpForService {
     }
 
     public boolean isOwner(Long userId,Long taskId){
-        Task task = checkId(taskId,taskRepository,"Task");
-        return task.getUser().getId().equals(userId);
+        return taskRepository.findById(taskId).map(task -> task.getUser().getId().equals(userId)).orElse(false);
     }
 }

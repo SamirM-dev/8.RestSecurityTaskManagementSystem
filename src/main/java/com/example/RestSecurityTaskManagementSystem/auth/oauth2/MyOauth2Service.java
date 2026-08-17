@@ -25,7 +25,7 @@ public class MyOauth2Service extends DefaultOAuth2UserService {
         //Github
         String name = oauth2.getAttribute("name");
         String email= oauth2.getAttribute("email");
-        String providerId=oauth2.getAttribute("id");
+        String providerId=String.valueOf(oauth2.getAttribute("id"));
 
         userRepository.findByProviderAndProviderId(provider,providerId)
                 .map(existing -> {

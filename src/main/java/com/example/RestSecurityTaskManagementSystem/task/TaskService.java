@@ -35,7 +35,6 @@ public class TaskService {
 
     public TaskResponse create(TaskCreateRequest request, User user){
         Task created = taskRepository.save(new Task(request.title(), request.description(), request.priority() , user));
-        user.addTask(created); убери это везде
         return toResponse(created);
     }
 
@@ -60,7 +59,6 @@ public class TaskService {
 
     public void delete(Long id){
         Task task = helpForService.checkId(id,taskRepository,TASK);
-        task.getUser().deleteTask(task);
         taskRepository.delete(task);
     }
 
