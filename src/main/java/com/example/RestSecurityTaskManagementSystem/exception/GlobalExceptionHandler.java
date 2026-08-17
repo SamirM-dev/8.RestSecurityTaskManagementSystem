@@ -6,6 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -91,6 +93,16 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(409).body(response);
     }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAuthorizationDenied(AuthorizationDeniedException e,HttpServletRequest request){
+        ErrorResponse response = new ErrorResponse(
+                403, "FORBIDDEN", "You don't have permission to access this resource", request.getRequestURI()
+        );
+
+        return ResponseEntity.status(403).body(response);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest request){
         ErrorResponse response = new ErrorResponse(

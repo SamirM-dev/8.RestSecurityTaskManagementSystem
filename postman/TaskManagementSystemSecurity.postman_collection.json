@@ -1,0 +1,642 @@
+{
+  "info": {
+    "_postman_id": "ccf9d3ce-a305-456d-bd86-51a1b562d071",
+    "name": "TaskManagementSystemSecurity",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57148955",
+    "_collection_link": "https://go.postman.co/collection/57148955-ccf9d3ce-a305-456d-bd86-51a1b562d071?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Create new user(register)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"name1\",\r\n    \"email\":\"email1@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/register",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"email1@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/login",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"refresh_token\":\"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlbWFpbDFAZ21haWwuY29tIiwiaWF0IjoxNzg2OTUwMDk1LCJleHAiOjE3ODc1NTQ4OTV9.kWz3Avpjf92j7mVPHN_dK7sXiJpscxOlJpjsaWOxqtYPT4l6gWRBDpQp4pRqc_yh\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/refresh",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlbWFpbDFAZ21haWwuY29tIiwiaWF0IjoxNzg2OTU0MTg5LCJleHAiOjE3ODc1NTg5ODl9.FQDcSEEx4SF_iYF-wKyzaGMn0Os33I_rU22RH6PiFj-Wz92GLa-pLwCKfH6jNcaq",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{path}}/me",
+              "host": [
+                "{{path}}"
+              ],
+              "path": [
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlbWFpbDFAZ21haWwuY29tIiwiaWF0IjoxNzg2OTU0MTg5LCJleHAiOjE3ODc1NTg5ODl9.FQDcSEEx4SF_iYF-wKyzaGMn0Os33I_rU22RH6PiFj-Wz92GLa-pLwCKfH6jNcaq",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"refresh_token\": \"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlbWFpbDFAZ21haWwuY29tIiwiaWF0IjoxNzg2OTU0MTg5LCJleHAiOjE3ODc1NTg5ODl9.FQDcSEEx4SF_iYF-wKyzaGMn0Os33I_rU22RH6PiFj-Wz92GLa-pLwCKfH6jNcaq\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/logout",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ERROR : Create user with existing email",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"name2\",\r\n    \"email\":\"email1@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth}}/register",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ERROR : Logout without authorization",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"email1@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}"
+            },
+            "url": {
+              "raw": "{{auth}}/logout",
+              "host": [
+                "{{auth}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get user by id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1MDA5NSwiZXhwIjoxNzg2OTUzNjk1fQ.1c-r1XCvFb-d7MJCBaTwFSJ_x06D3Le-WccAn8Ykd8uG2FFkKeN4mLj6o9ETBmKY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{users}}/3",
+              "host": [
+                "{{users}}"
+              ],
+              "path": [
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get user's tasks",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1MDA5NSwiZXhwIjoxNzg2OTUzNjk1fQ.1c-r1XCvFb-d7MJCBaTwFSJ_x06D3Le-WccAn8Ykd8uG2FFkKeN4mLj6o9ETBmKY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{users}}/3/tasks",
+              "host": [
+                "{{users}}"
+              ],
+              "path": [
+                "3",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Create new task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1MDA5NSwiZXhwIjoxNzg2OTUzNjk1fQ.1c-r1XCvFb-d7MJCBaTwFSJ_x06D3Le-WccAn8Ykd8uG2FFkKeN4mLj6o9ETBmKY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"title3\",\r\n  \"description\": \"3\",\r\n  \"priority\": \"HIGH\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tasks}}",
+              "host": [
+                "{{tasks}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update task by id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1MDA5NSwiZXhwIjoxNzg2OTUzNjk1fQ.1c-r1XCvFb-d7MJCBaTwFSJ_x06D3Le-WccAn8Ykd8uG2FFkKeN4mLj6o9ETBmKY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"title5\",\r\n  \"description\": \"hehe..now it's 5\",\r\n  \"status\": \"NEW\",\r\n  \"priority\": \"MEDIUM\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tasks}}/4",
+              "host": [
+                "{{tasks}}"
+              ],
+              "path": [
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update task status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1MDA5NSwiZXhwIjoxNzg2OTUzNjk1fQ.1c-r1XCvFb-d7MJCBaTwFSJ_x06D3Le-WccAn8Ykd8uG2FFkKeN4mLj6o9ETBmKY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\":\"IN_PROGRESS\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tasks}}/2/status",
+              "host": [
+                "{{tasks}}"
+              ],
+              "path": [
+                "2",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get task by id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1MDA5NSwiZXhwIjoxNzg2OTUzNjk1fQ.1c-r1XCvFb-d7MJCBaTwFSJ_x06D3Le-WccAn8Ykd8uG2FFkKeN4mLj6o9ETBmKY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{tasks}}/2",
+              "host": [
+                "{{tasks}}"
+              ],
+              "path": [
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get tasks with pagination",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1MDA5NSwiZXhwIjoxNzg2OTUzNjk1fQ.1c-r1XCvFb-d7MJCBaTwFSJ_x06D3Le-WccAn8Ykd8uG2FFkKeN4mLj6o9ETBmKY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{tasks}}?page=0&size=2&sort=id,asc",
+              "host": [
+                "{{tasks}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "2"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get tasks with filters",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1MDA5NSwiZXhwIjoxNzg2OTUzNjk1fQ.1c-r1XCvFb-d7MJCBaTwFSJ_x06D3Le-WccAn8Ykd8uG2FFkKeN4mLj6o9ETBmKY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{tasks}}?status=NEW&priority=HIGH",
+              "host": [
+                "{{tasks}}"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "NEW"
+                },
+                {
+                  "key": "priority",
+                  "value": "HIGH"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete task by id",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "ERROR : Creating task without title",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk2NTk1NiwiZXhwIjoxNzg2OTY5NTU2fQ.ojuNkLksSSeH1ZB94aFcj3OMLmL--JyjYgRZALX3goKtp5G3fE_IqAoCxWWeu1PB",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"\",\r\n    \"description\": \"error\",\r\n    \"priority\": \"LOW\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tasks}}",
+              "host": [
+                "{{tasks}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ERROR : Get another user's task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk2NTk1NiwiZXhwIjoxNzg2OTY5NTU2fQ.ojuNkLksSSeH1ZB94aFcj3OMLmL--JyjYgRZALX3goKtp5G3fE_IqAoCxWWeu1PB",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{tasks}}/1",
+              "host": [
+                "{{tasks}}"
+              ],
+              "path": [
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "Create comment for task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1NDE4OSwiZXhwIjoxNzg2OTU3Nzg5fQ.AjkDhOUOAoxZnsu8kzCOQbIyONzCUet5Ctl9fM3k7rPac92JjAiXDwM7cVYjV-Aj",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"text\": \"this task was 3 but now it is 5\",\r\n  \"author\": \"Urahara\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tasks}}/4/comments",
+              "host": [
+                "{{tasks}}"
+              ],
+              "path": [
+                "4",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get comments by task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1NDE4OSwiZXhwIjoxNzg2OTU3Nzg5fQ.AjkDhOUOAoxZnsu8kzCOQbIyONzCUet5Ctl9fM3k7rPac92JjAiXDwM7cVYjV-Aj",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{tasks}}/4/comments",
+              "host": [
+                "{{tasks}}"
+              ],
+              "path": [
+                "4",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ERROR : Delete comments by taskId and commentId(only Admins)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxQGdtYWlsLmNvbSIsImlhdCI6MTc4Njk1NDE4OSwiZXhwIjoxNzg2OTU3Nzg5fQ.AjkDhOUOAoxZnsu8kzCOQbIyONzCUet5Ctl9fM3k7rPac92JjAiXDwM7cVYjV-Aj",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{tasks}}/4/comments/1",
+              "host": [
+                "{{tasks}}"
+              ],
+              "path": [
+                "4",
+                "comments",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
