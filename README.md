@@ -43,7 +43,7 @@ java -jar target\RestSecurityTaskManagementSystem-0.0.1-SNAPSHOT.jar
 
 - Complete interactive documentation: http://localhost:8080/swagger-ui.html
 - Postman collection:
-   - Import: Postman → Import → select the collection file
+   - Import: Postman → Import → select the collection file(/postman/TaskManagementSystemSecurity.postman_collection.json)
    - Create environment variables:
       - auth: `http://localhost:8080/api/v1/auth`
       - path: `http://localhost:8080/api/v1`
